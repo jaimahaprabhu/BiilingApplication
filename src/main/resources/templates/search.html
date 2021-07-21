@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Search</title>
+    <link rel="stylesheet" th:href="@{/styles/main.css}"/>
+</head>
+
+<body>
+<h1>Billing Section -I</h1>
+<h2>Search for Item Here</h2>
+<form method="POST" name="search" th:action="@{/search}">
+    <input class="text" name="search" pattern="[A-Za-z]{2,}" required
+           type="text"><br> <br>
+    <button class="search" name="find" type="submit">Search Here</button>
+</form>
+<br>
+<form method="POST" name="next" th:action="@{/generateBill}">
+    <button name="next" type="submit">Generate Bill</button>
+</form>
+<br>
+<form method="GET" name="home" th:action="@{/home}">
+    <button name="home" type="submit">Home</button>
+</form>
+<table border=1>
+    <tr>
+        <th>CategoryName</th>
+        <th>ItemName</th>
+    </tr>
+    <tr th:each="item : ${itemList}">
+        <td><span th:text="${item.getCategoryName() }"></span></td>
+        <td><span th:text="${item.getItemName() }"></span></td>
+    </tr>
+</table>
+</body>
+</html>

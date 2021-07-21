@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Bill</title>
+    <link rel="stylesheet" th:href="@{/styles/main.css}"/>
+</head>
+
+<body>
+<h1>Thank you for Purchasing !!!!!</h1>
+<table>
+    <tr>
+        <th>OrderId</th>
+        <th>PurchaseDate</th>
+        <th>itemName</th>
+        <th>Quantity</th>
+        <th>PricePerUnit</th>
+        <th>TaxRate</th>
+        <th>Amount</th>
+    </tr>
+    <tr th:each="item : ${billList}">
+        <td><span th:text="${item.getOrderId()}"></span></td>
+        <td><span th:text="${item.getPurchaseDate()}"></span></td>
+        <td><span th:text="${item.getItemName()}"></span></td>
+        <td><span th:text="${item.getQuantity()}"></span></td>
+        <td><span th:text="${item.getPrice()}"></span></td>
+        <td><span th:text="${item.getTax()}"></span></td>
+        <td><span th:text="${item.getAmount()}"></span></td>
+    </tr>
+</table>
+<br>
+<p>Total Amount to be paid</p>
+<br>
+<span th:text="${count}"></span>
+<br>
+<form method="get" name="home" th:action="@{/home}">
+    <button class="b" name="home" type="submit">GoToHome</button>
+</form>
+</body>
+</html>

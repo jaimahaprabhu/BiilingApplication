@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Category</title>
+    <link rel="stylesheet" th:href="@{/styles/main.css}"/>
+</head>
+<body>
+
+<h1>Welcome to Inventory Category</h1>
+<!-- form method="get"  th:object="${category}"> -->
+<button id="add" type="submit">Add</button>
+
+<br>
+<form id="formadd" method="Post" th:action="@{/addcategory}"
+      th:object="${category}">
+    <table border=1>
+
+        <tr>
+            <td>Enter Category Name:</td>
+            <td><input pattern="[A-Za-z]{2,}" required
+                       th:field="*{categoryName}" type="text"></td>
+        </tr>
+        <tr>
+            <td>
+                <button type="submit">AddCategory</button>
+            </td>
+        </tr>
+    </table>
+</form>
+
+<form id="formedit" method="POST" th:action="@{/editcategory}"
+      th:object="${category}">
+    <table border=1>
+
+        <tr>
+            <td><input class="text" readonly th:field="*{categoryId}"
+                       type="text"></td>
+            <td>Enter New Category Name:</td>
+            <td><input class="text" pattern="[A-Za-z]{2,}" required
+                       th:field="*{categoryName}" type="text" value=""></td>
+
+        </tr>
+        <tr>
+            <td>
+                <button type="submit">EditCategory</button>
+            </td>
+        </tr>
+    </table>
+
+</form>
+<form id="formdelete" method="POST" th:action="@{/deletecategory}"
+      th:object="${category}">
+    <table border=1>
+        <tr>
+            <td><input class="text" readonly th:field="*{categoryId}"
+                       type="hidden" value="">
+                <button type="submit">ConfirmToDelete</button>
+            </td>
+        </tr>
+    </table>
+</form>
+<br>
+
+<form action="home" method="GET" name="home">
+    <button name="home" type="submit">GoToHome</button>
+
+</form>
+<br>
+
+<table border=1>
+    <tr>
+        <th>CatgeoryId</th>
+        <th>CategoryName</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+
+    <tr th:each="category : ${categoryList}">
+
+        <td><span th:text="${ category.getCategoryId()}"></span></td>
+
+        <td><span th:text="${ category.getCategoryName()}"></span></td>
+
+        <td>
+            <button class="edit" name="edit" type="submit">edit</button>
+        </td>
+
+        <td>
+            <button class="delete" name="delete" type="submit">delete</button>
+        </td>
+
+    </tr>
+
+</table>
+
+</body>
+<script
+        src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#add").click(function () {
+            $("#formadd").toggle();
+        });
+    });
+    $(document).ready(
+        function () {
+
+            $(".edit").click(
+                function () {
+
+                    // Finds the 2nd <td> element
+                    // Visits every single <td> element
+                    $("#formedit").toggle();
+                    $('input[name="categoryId"]').val(
+                        $(this).closest("tr").find(
+                            "td:nth-child(1)").text())
+
+                });
+
+        });
+    $(document).ready(
+        function () {
+            $(".delete").click(
+                function () {
+                    $("#formdelete").toggle();
+                    $('input[name="categoryId"]').val(
+                        $(this).closest("tr").find(
+                            "td:nth-child(1)").text())
+                });
+        });
+</script>
+
+</html>

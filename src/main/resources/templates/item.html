@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Item</title>
+    <link rel="stylesheet" th:href="@{/styles/main.css}"/>
+</head>
+<body>
+<h1>Welcome to Inventory Items</h1>
+
+<button class="b" id="add" name="add" type="submit">Add</button>
+<br>
+<form id="formadd" method="POST" th:action="@{/additem}"
+      th:object="${item}">
+    <table border=1>
+        <tr>
+            <td>Enter Category Name: &nbsp;</td>
+            <td class="select"><select th:field="*{categoryName}">
+                <option th:each="category: ${categoryList}"
+                        th:utext="${category.getCategoryName()}"
+                        th:value="${category.getCategoryName()}"></option>
+
+            </select></td>
+        </tr>
+        <tr>
+            <td>Enter Item Name :</td>
+            <td><input class="text" pattern="[A-Za-z]{2,}" placeholder="Name"
+                       required th:field="*{itemName}" type="text"></td>
+        </tr>
+        <tr>
+            <td>Enter PricePerUnit:</td>
+            <td><input class="text" pattern="[0-9]+(\.[0-9]{1,2})" required
+                       th:field="*{price}" th:placeholder="0.0" type="text"
+                       value=""></td>
+        </tr>
+        <tr>
+            <td>Enter Tax Rate :</td>
+            <td><input class="text" pattern="[0-9]+(\.[0-9]{1})" required
+                       th:field="*{tax}" th:placeholder="0.0" type="text"></td>
+        </tr>
+        <tr>
+            <td>Enter Quantity :</td>
+            <td><input class="text" pattern="[0-9]{1,}" required
+                       th:field="*{quantity}" th:placeholder="0" type="text"></td>
+        </tr>
+        <tr>
+            <td>
+                <button class="b" type="submit">Add</button>
+            </td>
+        </tr>
+    </table>
+</form>
+<form id="formedit" method="POST" th:action="@{/edititem}">
+    <table border=1>
+        <tr>
+            <td>Item Id :</td>
+            <td><input class="text" name="itemId" readonly type="text"></td>
+        </tr>
+        <tr>
+            <td>Enter the attribute to Edit:</td>
+            <td class="select"><select name="editoption">
+                <option value="Quantity">Quantity</option>
+                <option value="Tax">Tax</option>
+                <option value="Price">Price</option>
+
+            </select></td>
+        </tr>
+
+        <tr>
+            <td>Enter New Value:</td>
+            <td><input class="text" name="valuetoupdate" pattern="[0-9]{1,}+(\.[0-9]{1,2})"
+                       required type="text"></td>
+        </tr>
+        <tr>
+            <td>
+                <button class="b" type="submit">Edit</button>
+            </td>
+        </tr>
+    </table>
+
+</form>
+<form id="formdelete" method="POST" th:action="@{/deleteitem}"
+      th:object="${item}">
+    <table border=1>
+        <tr>
+            <td>Item Id :</td>
+            <td><input class="text" readonly th:field="*{itemId}"
+                       type="text" value=""></td>
+        </tr>
+
+        <tr>
+            <td>
+                <button class="b" name="delete" type="submit">Delete</button>
+            </td>
+        </tr>
+    </table>
+</form>
+<br>
+<form method="get" name="home" th:action="@{/home}">
+    <button class="b" name="home" type="submit">GoToHome</button>
+</form>
+<table border=1>
+    <tr>
+
+        <th>ItemId</th>
+        <th>CategoryName</th>
+        <th>ItemName</th>
+        <th>PricePerUnit</th>
+        <th>TaxRate</th>
+        <th>Quantity</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+
+    <tr th:each="item : ${itemList}">
+        <td><span th:text="${item.getItemId()}"></span></td>
+        <td><span th:text="${item.getCategoryName()}"></span></td>
+        <td><span th:text="${item.getItemName()}"></span></td>
+        <td><span th:text="${item.getPrice()}"></span></td>
+        <td><span th:text="${item.getTax()}"></span></td>
+        <td><span th:text="${item.getQuantity()}"></span></td>
+
+        <td>
+            <button class="edit" name="edit" type="submit">edit</button>
+        </td>
+        <td>
+            <button class="delete" name="delete" type="submit">delete</button>
+        </td>
+
+    </tr>
+
+</table>
+
+
+</body>
+<script
+        src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#add").click(function () {
+            $("#formadd").toggle();
+        });
+    });
+    $(document).ready(
+        function () {
+            $(".edit").click(
+                function () {
+                    $("#formedit").toggle();
+                    $('input[name="itemId"]').val(
+                        $(this).closest("tr").find(
+                            "td:nth-child(1)").text())
+
+                });
+        });
+    $(document).ready(
+        function () {
+            $(".delete").click(
+                function () {
+                    $("#formdelete").toggle();
+                    $('input[name="itemId"]').val(
+                        $(this).closest("tr").find(
+                            "td:nth-child(1)").text())
+                });
+        });
+</script>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

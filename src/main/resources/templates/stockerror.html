@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Category</title>
+    <link rel="stylesheet" th:href="@{/styles/main.css}"/>
+</head>
+<body>
+<p>
+    Sorry for your Inconvenience <br> due to Out of Stock Please
+</p>
+<br>
+<p th:text="${stock}"></p>
+<form method="GET" th:action="@{/billing}">
+    <button name="back" type="submit">Go Back</button>
+
+</form>
+
+</body>
+
+
+</html>

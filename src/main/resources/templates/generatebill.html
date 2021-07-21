@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Bill</title>
+    <link rel="stylesheet" th:href="@{/styles/main.css}"/>
+</head>
+<body>
+<form method="POST" th:action="@{/print}">
+    <table>
+        <tr>
+
+            <th>OrderId</th>
+            <th>PurchaseDate</th>
+
+        </tr>
+
+
+        <tr>
+            <td><span th:text="${orderId}"></span></td>
+            <td><span th:text="${Date}"></span>
+        </tr>
+
+    </table>
+    <br>
+
+    <button name="print" type="submit">Print</button>
+</form>
+
+<br>
+
+
+</body>
+</html>
